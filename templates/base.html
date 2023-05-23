@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Django Forum</title>
+    {% load static %}
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" />
+    <link rel="icon" href="../static/img/icon.png" class="icon">
+  </head>
+  <body>
+   
+    {% block content %}{{content}}{% endblock %}
+  </body>
+</html>

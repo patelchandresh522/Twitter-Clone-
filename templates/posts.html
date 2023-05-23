@@ -1,0 +1,61 @@
+{% extends "base.html" %} {%block content%} {% load static %}{% load static %}
+<section class="content">
+  <img src="../static/img/icon.png" alt="" class="top-logo">
+  <h1>TWITTER CLONE</h1>
+  <h3>Welcome here!</h3>
+
+  <section class="post_form">
+    <form action="/" method="POST" enctype="multipart/form-data">
+    {% csrf_token %} 
+    <input type="text" name="name" placeholder="Name" required>
+    <textarea name="body" placeholder="Type something here!" required></textarea>
+    <input type="file" name="image" />
+    <input type="submit" value="POST" />
+    </form>
+  </section>
+ 
+
+  <section class="posts">
+    <ul>
+      {% for post in posts %}
+      <li>
+        
+        
+        <div class="logo">
+          <img src="{% static 'img/user.png' %}" />
+        </div>
+        <div class="postbody">
+            <div class="name">{{post.name}}</div>
+            <div class="datetime">{{post.created_at}}</div>
+            <div><p>{{post.body}}</p></div>
+            <img class="js-menu-icon" id="menu-icon" src="{% static 'img/expand-button.png' %}" />
+            <div class="menu">
+              <a href="/delete/{{post.id}}/">Delete</a> <br>
+              <a href="/edit/{{post.id}}/">Edit</a>
+            </div>
+
+            {% if post.image.url %}
+            <img src="{{ post.image.url }}" alt="" class="postimg"/>
+              {% endif %}
+            <form action="{% url 'likepost' post.pk %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" name="post_id" value="{{post.id}}"><img src="../static/img/like.png" alt="" class="like"></button>
+              <p class="like">{{post.likes}}</p>
+            </form>
+         
+        </div>
+       
+         
+         
+
+        
+          
+        
+      </li>
+      {% endfor %}
+    </ul>
+  </section>
+  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+  <script src="{% static  'js/posts.js' %}"></script>
+</section>
+{% endblock %}

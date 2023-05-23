@@ -1,0 +1,28 @@
+{% extends "base.html" %} {% block content %}
+<img src="../static/img/icon.png" alt="" class="top-logo">
+  <h1>TWITTER CLONE</h1>
+  <h3>Welcome here!</h3>
+  
+<section class="title">
+    <img id="logo" src="../static/img/tech.png" alt="" class="logo">
+</section>
+<section class="post_form">
+    <form action="/edit/{{post.id}}/" method="POST" enctype="multipart/form-data">
+      {% csrf_token %} 
+      <input type="text" name="name" placeholder="Name" value="{{post.name}}" required>
+      <textarea name="body" placeholder="Type something here" required>{{post.body}}</textarea>
+      <input type="file" name="image" />
+      <a href="/"><input type="button" value="Cancel"/></a>
+      <input type="submit" value="UPDATE" />
+      
+      </form>
+      
+</section>
+<section class="photo">
+    {% if post.image.url %}
+            <img src="{{ post.image.url }}" alt="" class="edit-image"/>
+            {% endif %}
+</section>
+
+
+{% endblock %}
